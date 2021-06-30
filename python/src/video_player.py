@@ -10,6 +10,7 @@ class VideoPlayer:
     def __init__(self):
         self._video_library = VideoLibrary()
         self.current = ""
+        self.isPaused = False
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -84,8 +85,13 @@ class VideoPlayer:
 
     def pause_video(self):
         """Pauses the current video."""
-
-        print("pause_video needs implementation")
+        if self.current == "":
+            print("Cannot pause video: No video is currently playing")
+        elif self.isPaused == False:
+            print(f"Pausing video: {self.current}")
+            self.isPaused = True
+        elif self.isPaused == True:
+            print(f"Video already paused: {self.current}")
 
     def continue_video(self):
         """Resumes playing the current video."""
