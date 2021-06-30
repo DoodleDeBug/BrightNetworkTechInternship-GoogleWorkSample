@@ -8,6 +8,7 @@ class VideoPlayer:
 
     def __init__(self):
         self._video_library = VideoLibrary()
+        current = ""
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -15,8 +16,24 @@ class VideoPlayer:
 
     def show_all_videos(self):
         """Returns all videos."""
+        print(f"Here's a list of all available videos:")
+        videos = self._video_library.get_all_videos()
+        list = []
 
-        print("show_all_videos needs implementation")
+        for vid in videos:
+
+            tags = ""
+            for tag in vid.tags:
+                tags += tag + " "
+
+            if tags != []:
+                tags = tags[0:len(tags)-1]
+
+            list += [f"   {vid.title} ({vid.video_id}) [{tags}]"]
+
+        sorted_list = sorted(list)
+        for vid in sorted_list:
+            print(vid)
 
     def play_video(self, video_id):
         """Plays the respective video.
@@ -24,7 +41,22 @@ class VideoPlayer:
         Args:
             video_id: The video_id to be played.
         """
-        print("play_video needs implementation")
+
+        videos = self._video_library.get_all_videos()
+        id_list = []
+        for vid in videos:
+            id = vid.video_id
+            id_list.append(id)
+
+        if video_id not in id_list:
+            print("Cannot play video: Video does not exist")
+        else:
+            if current != "":
+                print(f"Stopping video: {current}")
+            for vid in videos:
+                if video_id == vid.video_id:
+                    print(f"Playing video: {vid.title}")
+                    current = {vid.title}
 
     def stop_video(self):
         """Stops the current video."""
