@@ -59,12 +59,14 @@ class VideoPlayer:
                 if video_id == vid.video_id:
                     print(f"Playing video: {vid.title}")
                     self.current = vid.title
+                    self.isPaused = False
 
     def stop_video(self):
         """Stops the current video."""
 
         if self.current != "":
             print(f"Stopping video: {self.current}")
+            self.isPaused = False
             self.current = ""
         else:
             print("Cannot stop video: No video is currently playing")
@@ -106,8 +108,34 @@ class VideoPlayer:
 
     def show_playing(self):
         """Displays video currently playing."""
+        videos = self._video_library.get_all_videos()
+        list = []
+        names = []
 
-        print("show_playing needs implementation")
+        for vid in videos:
+
+            tags = ""
+            for tag in vid.tags:
+                tags += tag + " "
+
+            if tags != []:
+                tags = tags[0:len(tags)-1]
+
+            list += [f"{vid.title} ({vid.video_id}) [{tags}]"]
+
+        for vid in videos:
+            names += [f"{vid.title}"]
+
+        if self.current == "":
+            print("No video is currently playing")
+        elif self.isPaused == False:
+            vid = list[names.index(self.current)]
+            print(
+                f"Currently playing: {vid}")
+        elif self.isPaused == True:
+            vid = list[names.index(self.current)]
+            print(
+                f"Currently playing: {vid} - PAUSED")
 
     def create_playlist(self, playlist_name):
         """Creates a playlist with a given name.
