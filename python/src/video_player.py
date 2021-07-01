@@ -235,8 +235,10 @@ class VideoPlayer:
             for match in sorted_match:
                 print(f"{i}) {match}")
                 i += 1
-            answer = input(
-                "Would you like to play any of the above? If yes, specify the number of the video.\n""If your answer is not a valid number, we will assume it's a no.\n")
+            print(
+                "Would you like to play any of the above? If yes, specify the number of the video.")
+            print("If your answer is not a valid number, we will assume it's a no.")
+            answer = input()
             if answer.isdigit():
                 answer = int(answer)
                 if answer > 0 and answer <= len(matches):
@@ -277,24 +279,25 @@ class VideoPlayer:
             tag_list = ""
             for tag in vid.tags:
                 tag_list += tag + " "
+
             id_match = tag_list.find(search_tag)
-            if id_match > 0:
+            if id_match >= 0:
                 id = vid.video_id
                 id_list.append(id)
 
-        print(tag_list)
         if len(matches) > 0:
             print(f"Here are the results for {search_tag}:")
             sorted_match = sorted(matches)
             i = 1
             for match in sorted_match:
-                print(f"{i}) {match}")
+                print(f"  {i}) {match}")
                 i += 1
-            answer = input(
-                "Would you like to play any of the above? If yes, specify the number of the video.\n""If your answer is not a valid number, we will assume it's a no.\n")
+            print(
+                "Would you like to play any of the above? If yes, specify the number of the video.")
+            print("If your answer is not a valid number, we will assume it's a no.")
+            answer = input()
             if answer.isdigit():
                 answer = int(answer)
-                print(type(answer))
                 if answer > 0 and answer <= len(matches):
                     self.play_video(id_list[answer - 1])
         elif len(matches) == 0:
