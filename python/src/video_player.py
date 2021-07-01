@@ -2,6 +2,7 @@
 
 from .video_library import VideoLibrary
 import random
+import re
 
 
 class VideoPlayer:
@@ -198,7 +199,50 @@ class VideoPlayer:
         Args:
             search_term: The query to be used in search.
         """
-        print("search_videos needs implementation")
+        videos = self._video_library.get_all_videos()
+        list = []
+        matches = []
+        id_list = []
+
+        term = search_term.lower()
+
+        for vid in videos:
+
+            tags = ""
+            for tag in vid.tags:
+                tags += tag + " "
+
+            if tags != []:
+                tags = tags[0:len(tags)-1]
+
+            list += [f"{vid.title} ({vid.video_id}) [{tags}]"]
+
+        for vid in list:
+            match = vid.find(term)
+            if match > 0:
+                matches.append(vid)
+
+        for vid in videos:
+            id_match = vid.title.lower().find(term)
+            if id_match > 0:
+                id = vid.video_id
+                id_list.append(id)
+
+        if len(matches) > 0:
+            print(f"Here are the results for {term}:")
+            sorted_match = sorted(matches)
+            i = 1
+            for match in sorted_match:
+                print(f"{i}) {match}")
+                i += 1
+            answer = input(
+                "Would you like to play any of the above? If yes, specify the number of the video.\n""If your answer is not a valid number, we will assume it's a no.\n")
+            if answer.isdigit():
+                answer = int(answer)
+                if answer > 0 and answer <= len(matches):
+                    self.play_video(id_list[answer - 1])
+        elif len(matches) == 0:
+            print(f"No search results for {term}")
 
     def search_videos_tag(self, video_tag):
         """Display all videos whose tags contains the provided tag.
@@ -206,7 +250,55 @@ class VideoPlayer:
         Args:
             video_tag: The video tag to be used in search.
         """
-        print("search_videos_tag needs implementation")
+        videos = self._video_library.get_all_videos()
+        list = []
+        matches = []
+        id_list = []
+
+        search_tag = video_tag.lower()
+
+        for vid in videos:
+
+            tags = ""
+            for tag in vid.tags:
+                tags += tag + " "
+
+            if tags != []:
+                tags = tags[0:len(tags)-1]
+
+            list += [f"{vid.title} ({vid.video_id}) [{tags}]"]
+
+        for vid in list:
+            match = vid.find(search_tag)
+            if match > 0:
+                matches.append(vid)
+
+        for vid in videos:
+            tag_list = ""
+            for tag in vid.tags:
+                tag_list += tag + " "
+            id_match = tag_list.find(search_tag)
+            if id_match > 0:
+                id = vid.video_id
+                id_list.append(id)
+
+        print(tag_list)
+        if len(matches) > 0:
+            print(f"Here are the results for {search_tag}:")
+            sorted_match = sorted(matches)
+            i = 1
+            for match in sorted_match:
+                print(f"{i}) {match}")
+                i += 1
+            answer = input(
+                "Would you like to play any of the above? If yes, specify the number of the video.\n""If your answer is not a valid number, we will assume it's a no.\n")
+            if answer.isdigit():
+                answer = int(answer)
+                print(type(answer))
+                if answer > 0 and answer <= len(matches):
+                    self.play_video(id_list[answer - 1])
+        elif len(matches) == 0:
+            print(f"No search results for {search_tag}")
 
     def flag_video(self, video_id, flag_reason=""):
         """Mark a video as flagged.
