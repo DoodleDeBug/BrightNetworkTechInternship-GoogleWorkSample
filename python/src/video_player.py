@@ -12,6 +12,7 @@ class VideoPlayer:
         self._video_library = VideoLibrary()
         self.current = ""
         self.isPaused = False
+        self.isFlagged = False
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -310,7 +311,28 @@ class VideoPlayer:
             video_id: The video_id to be flagged.
             flag_reason: Reason for flagging the video.
         """
-        print("flag_video needs implementation")
+        videos = self._video_library.get_all_videos()
+        id_list = []
+        for vid in videos:
+            id = vid.video_id
+            id_list.append(id)
+
+        for vid in videos:
+            if video_id == vid.video_id:
+                name = vid.title
+
+        if video_id not in id_list:
+            print("Cannot flag video: Video does not exist")
+        elif self.isFlagged == True:
+            print("Cannot flag video: Video is already flagged")
+        else:
+            self.isFlagged = True
+            if flag_reason == "":
+                print(
+                    f"Successfully flagged video: {name} (reason: Not supplied)")
+            else:
+                print(
+                    f"Successfully flagged video: {name} (reason: {flag_reason})")
 
     def allow_video(self, video_id):
         """Removes a flag from a video.
@@ -318,4 +340,20 @@ class VideoPlayer:
         Args:
             video_id: The video_id to be allowed again.
         """
-        print("allow_video needs implementation")
+        videos = self._video_library.get_all_videos()
+        id_list = []
+        for vid in videos:
+            id = vid.video_id
+            id_list.append(id)
+
+        for vid in videos:
+            if video_id == vid.video_id:
+                name = vid.title
+
+        if video_id not in id_list:
+            print("Cannot remove flag from video: Video does not exist")
+        elif self.isFlagged == False:
+            print("Cannot remove flag from video: Video is not flagged")
+        elif self.isFlagged == True:
+            print(f"Successfully removed flag from video: {name}")
+            self.isFlagged = False
