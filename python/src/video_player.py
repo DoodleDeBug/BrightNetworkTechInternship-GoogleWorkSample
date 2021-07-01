@@ -160,7 +160,28 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
-        print("add_to_playlist needs implementation")
+
+        formatted_name = playlist_name.lower()
+        videos = self._video_library.get_all_videos()
+        id_list = []
+        for vid in videos:
+            id = vid.video_id
+            id_list.append(id)
+
+        if video_id in id_list:
+            index = id_list.index(video_id)
+            name = videos[index].title
+
+        if formatted_name not in self.playlists:
+            print(
+                f"Cannot add video to {playlist_name}: Playlist does not exist")
+        elif video_id not in id_list:
+            print(f"Cannot add video to {playlist_name}: Video does not exist")
+        elif name in self.playlists[formatted_name]:
+            print(f"Cannot add video to {playlist_name}: Video already added")
+        else:
+            self.playlists[formatted_name].append(name)
+            print(f"Added video to {playlist_name}: {name}")
 
     def show_all_playlists(self):
         """Display all playlists."""
