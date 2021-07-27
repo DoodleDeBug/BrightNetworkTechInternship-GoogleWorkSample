@@ -160,9 +160,24 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
-
         formatted_name = playlist_name.lower()
         videos = self._video_library.get_all_videos()
+
+        vid_list = []
+        
+        for vid in videos:
+
+            tags = ""
+            for tag in vid.tags:
+                tags += tag + " "
+
+            if tags != []:
+                tags = tags[0:len(tags)-1]
+
+            vid_list += [f"{vid.title} ({vid.video_id}) [{tags}]"]
+
+
+        
         id_list = []
         for vid in videos:
             id = vid.video_id
@@ -171,22 +186,45 @@ class VideoPlayer:
         if video_id in id_list:
             index = id_list.index(video_id)
             name = videos[index].title
+            info = vid_list[index]
+
+        # playlist_list = []
+
+        # for playlist in self.playlists:
+        #     playlist_list.append(str(playlist).lower())
+
+        # key = self.playlists.get(formatted_name)
+        # if type(key) == None:
+        #     key = self.playlists.get(playlist_name)
 
         if formatted_name not in self.playlists:
             print(
                 f"Cannot add video to {playlist_name}: Playlist does not exist")
         elif video_id not in id_list:
             print(f"Cannot add video to {playlist_name}: Video does not exist")
-        elif name in self.playlists[formatted_name]:
+        elif info in self.playlists[formatted_name]:
             print(f"Cannot add video to {playlist_name}: Video already added")
         else:
-            self.playlists[formatted_name].append(name)
+            self.playlists[formatted_name].append(info)
             print(f"Added video to {playlist_name}: {name}")
 
     def show_all_playlists(self):
         """Display all playlists."""
 
-        print("show_all_playlists needs implementation")
+        if self.playlists == {}:
+            print(
+                "No playlists exist yet")
+        else:
+            print(
+                "Showing all playlists:")
+            ordered_names = []
+            for playlist_name in self.playlists.keys():
+                
+                ordered_names.append(playlist_name)
+                sorted_list = sorted(ordered_names)
+
+            for playlist_name in sorted_list:
+                print(playlist_name)
 
     def show_playlist(self, playlist_name):
         """Display all videos in a playlist with a given name.
@@ -194,7 +232,18 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("show_playlist needs implementation")
+        formatted_name = playlist_name.lower()
+
+        if formatted_name in self.playlists.keys():
+            print(f"Showing playlist: {playlist_name}")
+            if self.playlists[formatted_name] == []:
+                print(
+                "No videos here yet")
+            else:
+                for vid in self.playlists[formatted_name]:
+                    print(vid)
+        else:
+            print(f"Cannot show playlist {playlist_name}: Playlist does not exist")
 
     def remove_from_playlist(self, playlist_name, video_id):
         """Removes a video to a playlist with a given name.
@@ -203,7 +252,42 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be removed.
         """
-        print("remove_from_playlist needs implementation")
+        formatted_name = playlist_name.lower()
+        videos = self._video_library.get_all_videos()
+
+        vid_list = []
+        
+        for vid in videos:
+
+            tags = ""
+            for tag in vid.tags:
+                tags += tag + " "
+
+            if tags != []:
+                tags = tags[0:len(tags)-1]
+
+            vid_list += [f"{vid.title} ({vid.video_id}) [{tags}]"]
+
+        id_list = []
+        for vid in videos:
+            id = vid.video_id
+            id_list.append(id)
+
+        if video_id in id_list:
+            index = id_list.index(video_id)
+            name = videos[index].title
+            info = vid_list[index]
+
+        if (formatted_name not in self.playlists) or (formatted_name not in self.playlists and video_id not in id_list):
+            print(
+                f"Cannot remove video from {playlist_name}: Playlist does not exist")
+        elif video_id not in id_list:
+            print(f"Cannot remove video from {playlist_name}: Video does not exist")
+        elif info not in self.playlists[formatted_name]:
+            print(f"Cannot remove video from {playlist_name}: Video is not in playlist")
+        else:
+            self.playlists[formatted_name].remove(info)
+            print(f"Removed video from {playlist_name}: {name}")
 
     def clear_playlist(self, playlist_name):
         """Removes all videos from a playlist with a given name.
@@ -211,7 +295,14 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("clears_playlist needs implementation")
+        formatted_name = playlist_name.lower()
+
+        if (formatted_name not in self.playlists):
+            print(
+                f"Cannot clear playlist {playlist_name}: Playlist does not exist")
+        else:
+            self.playlists[formatted_name] = []
+            print(f"Successfully removed all videos from {playlist_name}")
 
     def delete_playlist(self, playlist_name):
         """Deletes a playlist with a given name.
@@ -219,7 +310,14 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("deletes_playlist needs implementation")
+        formatted_name = playlist_name.lower()
+
+        if (formatted_name not in self.playlists):
+            print(
+                f"Cannot delete playlist {playlist_name}: Playlist does not exist")
+        else:
+            self.playlists.pop(formatted_name)
+            print(f"Deleted playlist: {playlist_name}")
 
     def search_videos(self, search_term):
         """Display all the videos whose titles contain the search_term.
