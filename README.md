@@ -18,5 +18,5 @@ Within the 2 days working time we had (out of the 3 day experience) I managed to
 - set CMD/terminal address to project dictionary (cd PROJECT_PATH)
 - And run Command: python -m pytest
 
-As of  :
+As of  4th August 2021:
 11 tests fail, 60 pass
