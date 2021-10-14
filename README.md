@@ -9,11 +9,14 @@ Since it was my first time working with Python, I was a little slow to get start
 Within the 2 days working time we had (out of the 3 day experience) I managed to complete part 1 and 3, aswell as some of part 2 and 4. I then came back to it later and attempted the rest.
 
 ## Requirements:
-Python 3.7 or higher
-Pytest (to install: pip install pytest)
-IDE (e.g VS code etc)
+- Python 3.7 or higher
+- Pytest (to install: pip install pytest)
+- IDE (e.g VS code etc)
 
 ## How to run:
-Download the project
-set CMD/terminal address to project dictionary (cd PROJECT_PATH)
-And run Command: python -m pytest
+- Download the project
+- set CMD/terminal address to project dictionary (cd PROJECT_PATH)
+- And run Command: python -m pytest
+
+As of  :
+11 tests fail, 60 pass
