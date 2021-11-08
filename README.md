@@ -13,10 +13,21 @@ Within the 2 days working time we had (out of the 3 day experience) I managed to
 - Pytest (to install: pip install pytest)
 - IDE (e.g VS code etc)
 
-## How to run:
-- Download the project
-- set CMD/terminal address to project dictionary (cd PROJECT_PATH)
-- And run Command: python -m pytest
+## How to run tests:
+- Fork and clone the project
+- `cd` into the python directory
+- Run the command `python -m pytest`
+
+## How to use the program:
+- Fork and clone the project
+- `cd` into the python directory
+- Run the command `python -m src.run`
+- Enter `HELP` to see the list of commands
+
+## Screenshots:
+![image](https://user-images.githubusercontent.com/75613073/140731955-53d48eeb-d964-4c53-95db-f09e6c2ab13c.png)
+
+![image](https://user-images.githubusercontent.com/75613073/140732730-47e98ef7-acb2-480f-9656-43446e43389d.png)
 
 As of  4th August 2021:
 11 tests fail, 60 pass
