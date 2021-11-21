@@ -17,6 +17,8 @@ Within the 2 days working time we had (out of the 3 day experience) I managed to
 - `cd` into the python directory
 - Run the command `python -m pytest`
 
+As of 4th August 2021: 11 tests fail, 60 pass
+
 ## How to use the program:
 - Fork and clone the project
 - `cd` into the python directory
@@ -30,6 +32,3 @@ Within the 2 days working time we had (out of the 3 day experience) I managed to
 
 ![image](https://user-images.githubusercontent.com/75613073/140732978-e3e3097e-0e18-4d45-8958-a248a31942a3.png)
 
-
-As of  4th August 2021:
-11 tests fail, 60 pass
