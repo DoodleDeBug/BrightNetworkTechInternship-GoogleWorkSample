@@ -10,7 +10,6 @@ Within the 2 days working time we had (out of the 3 day experience) I managed to
 ## Requirements:
 - Python 3.7 or higher
 - Pytest (to install: pip install pytest)
-- IDE (e.g VS code etc)
 
 ## How to run tests:
 - Fork and clone the project
